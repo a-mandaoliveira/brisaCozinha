@@ -14,6 +14,8 @@ import com.google.gson.*;
 
 import java.util.Arrays;
 import java.util.List;
+
+import util.;
 /**
  *
  * @author anton
@@ -30,17 +32,19 @@ public class ClienteServerlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String email = request.getParameter("username");
-           String password = request.getParameter("password");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        
+        String email = request.getParameter("username");
+        String password = request.getParameter("password");
            
-           DAO.ClienteDAO clienteDAO = new DAO.ClienteDAO();
-           model.Cliente cliente = clienteDAO.selecionarPorEmail(email);
-           if(cliente.getSenha() == null ? password == null : cliente.getSenha().equals(password)) {
-               
+        Gson gson = new Gson();
+        String jsonResponse;
+        
+        try (PrintWriter out = response.getWriter()) {
+           if(email == null || password == null || email.trim().isEmpty() || password.trim().isEmpty()){
+               jsonResponse = gson.toJson(new JsonResponse(false,"Email e senha são obrigatórios."));
            }
         }
     }
@@ -85,3 +89,5 @@ public class ClienteServerlet extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
