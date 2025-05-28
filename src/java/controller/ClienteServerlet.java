@@ -34,16 +34,14 @@ public class ClienteServerlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ClienteController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ClienteController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String email = request.getParameter("username");
+           String password = request.getParameter("password");
+           
+           DAO.ClienteDAO clienteDAO = new DAO.ClienteDAO();
+           model.Cliente cliente = clienteDAO.selecionarPorEmail(email);
+           if(cliente.getSenha() == null ? password == null : cliente.getSenha().equals(password)) {
+               
+           }
         }
     }
 
