@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cardápio - Brisa Cozinha</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background-color:  #256B3D;
+      color: #f5e9d4;
+    }
+
+    header {
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header span {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #f5e9d4;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 1rem;
+    }
+
+    .cardapio {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .categoria {
+      margin-bottom: 2rem;
+    }
+
+    .prato {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .prato img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .descricao {
+      flex-grow: 1;
+    }
+
+    .descricao h3 {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .descricao p {
+      margin-bottom: 0.5rem;
+    }
+
+    .descricao span {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: #16492D;
+      color: #f5e9d4;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    footer section {
+      max-width: 300px;
+    }
+
+    footer h3 {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    footer a {
+      display: block;
+      color: #f5e9d4;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span>Brisa Cozinha</span>
+    <nav>
+      <a href="homePage.html">Início</a>
+      <a href="cardapio.html">Cardápio</a>
+      <a href="reservas.html">Reservas</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cardapio">
+      <h1>Nosso Cardápio</h1>
+      
+      <section class="categoria">
+        <h2>Entradas</h2>
+        <section class="prato">
+          <img src="img/comida1.jfif" alt="Entrada deliciosa" />
+          <section class="descricao">
+            <h3>Bruschetta de Tomate</h3>
+            <p>Deliciosa combinação de tomate fresco, manjericão e azeite sobre pão crocante.</p>
+            <span>R$ 18,00</span>
+          </section>
+        </section>
+
+        <section class="prato">
+          <img src="img/Salada-Caprese.webp" alt="Entrada deliciosa" />
+          <section class="descricao">
+            <h3>Salada Caprese</h3>
+            <p>Tomate, queijo mozarela de búfala e manjericão, regados com azeite de oliva.</p>
+            <span>R$ 22,00</span>
+          </section>
+        </section>
+    </section>
+
+        <section class="categoria">
+            <h2>Pratos Principais</h2>
+
+            <section class="prato">
+                <img src="img/risoto-de-frutos-do-mar.jpg" alt="Prato Principal" />
+                <section class="descricao">
+                    <h3>Risoto de Frutos do Mar</h3>
+                    <p>Risoto cremoso com camarões, lulas e vieiras frescas.</p>
+                    <span>R$ 55,00</span>
+                </section>
+
+            </section>
+            <section class="prato">
+                <img src="img/fileMignonMolhoVinho.webp" alt="Prato Principal" />
+                <section class="descricao">
+                    <h3>Filé Mignon ao Molho de Vinho</h3>
+                    <p>Filé mignon grelhado com molho suave de vinho tinto e acompanhamentos especiais.</p>
+                    <span>R$ 65,00</span>
+                </section>
+            </section>
+        </section>
+
+      <section class="categoria">
+        <h2>Sobremesas</h2>
+        <section class="prato">
+          <img src="img/pave_de_amarula.webp" alt="Sobremesa deliciosa" />
+          <section class="descricao">
+            <h3>Pavê de Chocolate</h3>
+            <p>Deliciosa camada de chocolate e biscoito com creme suave.</p>
+            <span>R$ 18,00</span>
+          </section>
+        </section>
+        <section class="prato">
+          <img src="img/tiramisu.jpg" alt="Sobremesa deliciosa" />
+          <section class="descricao">
+            <h3>Tiramisu</h3>
+            <p>Clássico italiano com camadas de biscoitos, café e creme mascarpone.</p>
+            <span>R$ 20,00</span>
+          </section>
+        </section>
+        </section>
+    </section>
+  </main>
+
+  <footer>
+    <section>
+      <h3>Contato</h3>
+      <address>
+        Rua Principal, 123<br />
+        (12) 2465-79600<br />
+        contato@brisa-cozinha.com
+      </address>
+    </section>
+    <section>
+      <h3>Horário de Funcionamento</h3>
+      <p>Seg-Sex: 12:00 – 23:00<br />Sab-Dom: 12:00 – 23:00</p>
+    </section>
+    <section>
+      <h3>Redes Sociais</h3>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+      <a href="#">Twitter</a>
+    </section>
+  </footer>
+
+</body>
+</html>
