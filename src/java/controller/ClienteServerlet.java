@@ -6,11 +6,21 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.OutputStream;
+
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.google.gson.*;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,9 +44,18 @@ public class ClienteServerlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String email = request.getParameter("username");
+           String email = request.getParameter("username");
            String password = request.getParameter("password");
            
+           Gson gson = new Gson();
+           
+           if(email.equals("admin") && password.equals("admin")) {
+               String jsonResponse = gson.toJson("teste");
+               
+               //exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");;
+               //exchange.sendResponseHeaders(200, jsonResponse.getBytes(StandardCharsets.UTF_8).length);
+               return jsonResponse;
+           }
            DAO.ClienteDAO clienteDAO = new DAO.ClienteDAO();
            model.Cliente cliente = clienteDAO.selecionarPorEmail(email);
            if(cliente.getSenha() == null ? password == null : cliente.getSenha().equals(password)) {
