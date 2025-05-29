@@ -57,13 +57,9 @@ public class MesaDAO {
         PreparedStatement comando = con.prepareStatement("select * from mesa where id = ?");
         comando.setInt(1, m.getIdMesa());
         ResultSet rs = comando.executeQuery();
-        Mesa mesa = new Mesa();
+        Mesa mesa = null;
         if (rs.next()){
-            mesa.setIdMesa(rs.getInt("idMesa"));
-            mesa.setNumeroMesa(rs.getInt("numeroMesa"));
-            mesa.setQntdLugar(rs.getInt("qntdLugar"));
-            mesa.setValorReserva(rs.getDouble("valorReserva"));
-            mesa.setStatus(rs.getString("status"));
+           mesa = new Mesa(rs.getInt("idMesa"), rs.getInt("numeroMesa"), rs.getInt("qntdLugar"),rs.getString("status"), rs.getDouble("valorReserva"));
         }        
         return mesa;
     }
@@ -76,12 +72,7 @@ public class MesaDAO {
         
         List<Mesa> lmesa = new ArrayList<Mesa>();
         while(rs.next()){
-            Mesa mesa = new Mesa();
-            mesa.setIdMesa(rs.getInt("idMesa"));
-            mesa.setNumeroMesa(rs.getInt("numeroMesa"));
-            mesa.setQntdLugar(rs.getInt("qntdLugar"));
-            mesa.setValorReserva(rs.getDouble("valorReserva"));
-            mesa.setStatus(rs.getString("status"));
+            Mesa mesa = new Mesa(rs.getInt("idMesa"), rs.getInt("numeroMesa"), rs.getInt("qntdLugar"),rs.getString("status"), rs.getDouble("valorReserva"));
             lmesa.add(mesa);
         }        
         return lmesa;
