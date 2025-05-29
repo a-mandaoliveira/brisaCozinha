@@ -12,15 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.*;
 
-import java.util.Arrays;
-import java.util.List;
-
 import util.JsonResponse;
 /**
  *
  * @author anton
  */
-public class ClienteServerlet extends HttpServlet {
+public class LoginServerlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

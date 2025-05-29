@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClienteDAO {
-    private final String querySelecionarPorEmail = "SELECT id, nome, telefone, cpf, email, senha FROM cliente WHERE email = ?";;
+    private final String querySelecionarPorEmail = "SELECT id, nome, telefone, cpf, email, senha FROM cliente WHERE email = ?";
     public model.Cliente selecionarPorEmail(String email){
         ResultSet rs = null;
         PreparedStatement stmt = null;
@@ -41,4 +41,6 @@ public class ClienteDAO {
         
         return cliente;
     }
+    
+    private final String queryCadastrar = "oi";
 }

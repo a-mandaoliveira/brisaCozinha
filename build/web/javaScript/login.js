@@ -11,8 +11,8 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: 'http://localhost:8080/Restaurante/ClienteController',
-            method: 'GET',
+            url: 'http://localhost:8080/Restaurante/LoginServerlet',
+            method: 'POST',
             data: data,
             dataType: 'json'
         }).done(function (result) {

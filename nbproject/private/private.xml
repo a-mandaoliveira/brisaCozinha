@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/ClienteServerlet.java</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/LoginServerlet.java</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/CadastroServerlet.java</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/web/cadastro.html</file>
             <file>file:/D:/GitRepositories/brisaCozinha/src/java/DAO/ClienteDAO.java</file>
-            <file>file:/D:/GitRepositories/brisaCozinha/src/java/util/JsonResponse.java</file>
-            <file>file:/D:/GitRepositories/brisaCozinha/src/java/model/Cliente.java</file>
         </group>
     </open-files>
 </project-private>
