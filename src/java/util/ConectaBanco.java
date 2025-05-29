@@ -13,7 +13,7 @@ public class ConectaBanco {
         java.sql.Connection con = null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/dbloja", "root", "");
+            con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/brisacozinha", "root", "");
         }catch(ClassNotFoundException | java.sql.SQLException ex){
             throw new RuntimeException(ex.getMessage());
         }

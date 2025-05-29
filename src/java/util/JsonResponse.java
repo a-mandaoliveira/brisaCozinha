@@ -4,7 +4,11 @@
  */
 package util;
 
-class JsonResponse {
+/**
+ *
+ * @author anton
+ */
+public class JsonResponse {
     boolean success;
     String message;
     Object data;

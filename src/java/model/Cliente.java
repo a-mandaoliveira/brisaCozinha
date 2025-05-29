@@ -72,5 +72,9 @@ public class Cliente {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
+    
+    @Override
+    public String toString(){
+        return "Nome: "+nome+" - Email: "+email;
+    }
 }

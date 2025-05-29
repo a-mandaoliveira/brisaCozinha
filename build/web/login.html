@@ -8,20 +8,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/login.css">
+    <script src="javaScript/jQuery.js"></script>
+    <script src="javaScript/login.js"></script>
 </head>
 <body>
     <div class="login-container">
         <div class="login-header">
             Login
         </div>
-        <form>
+        <form id="login" class="login">
             <div class="input-group">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" placeholder="Seu email" required>
+                <input type="text" id="email" name="email" placeholder="Seu email">
             </div>
             <div class="input-group">
                 <label for="password">Senha</label>
-                <input type="password" id="password" name="password" placeholder="Sua senha" required>
+                <input type="password" id="password" name="password" placeholder="Sua senha">
             </div>
             <button type="submit" class="login-button">Entrar</button>
         </form>

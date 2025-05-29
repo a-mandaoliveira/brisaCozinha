@@ -15,7 +15,7 @@ import com.google.gson.*;
 import java.util.Arrays;
 import java.util.List;
 
-import util.;
+import util.JsonResponse;
 /**
  *
  * @author anton
@@ -36,16 +36,50 @@ public class ClienteServerlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
-        String email = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
-           
+        
         Gson gson = new Gson();
         String jsonResponse;
         
         try (PrintWriter out = response.getWriter()) {
-           if(email == null || password == null || email.trim().isEmpty() || password.trim().isEmpty()){
-               jsonResponse = gson.toJson(new JsonResponse(false,"Email e senha são obrigatórios."));
-           }
+            //email/senha nulos
+            if(email == null || password == null || email.trim().isEmpty() || password.trim().isEmpty()){
+               jsonResponse = gson.toJson(new JsonResponse(false, "Email e senha são obrigatórios."));
+               out.print(jsonResponse);
+               out.flush();
+               return;
+            }
+           
+            //admin
+            if("admin".equals(email) && "admin".equals(password)) {
+               jsonResponse = gson.toJson(new JsonResponse(true, "Administrador logado com sucesso", "Admin"));
+               response.setStatus(HttpServletResponse.SC_OK);
+               out.print(jsonResponse);
+               out.flush();
+               return;
+            }
+           
+            DAO.ClienteDAO clienteDAO = new DAO.ClienteDAO(); //
+            model.Cliente cliente = null;
+           
+            try {
+                cliente = clienteDAO.selecionarPorEmail(email); //
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+                jsonResponse = gson.toJson(new JsonResponse(false, e.toString()));
+                out.print(jsonResponse);
+                out.flush();
+                return;
+            }finally{
+                jsonResponse = gson.toJson(new JsonResponse(true, cliente.toString(), cliente));
+               response.setStatus(HttpServletResponse.SC_OK);
+               out.print(jsonResponse);
+               out.flush();
+               return;
+            }
         }
     }
 
@@ -87,7 +121,24 @@ public class ClienteServerlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    class ClienteDetails {
+        int id;
+        String nome;
+        String email;
+        String telefone;
+        String cpf;
 
+        public ClienteDetails(int id, String nome, String email, String telefone, String cpf) {
+            this.id = id;
+            this.nome = nome;
+            this.email = email;
+            this.telefone = telefone;
+            this.cpf = cpf;
+        }
+        
+        
+    }
 }
 
 
