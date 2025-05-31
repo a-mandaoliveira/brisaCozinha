@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tabela com Editar e Apagar</title>
+  <title>Página de Reservas</title>
   <style>
     /* Reset básico */
     * {
@@ -24,53 +24,12 @@
       color: #f5e9d4;
       font-size: 1.5rem;
       font-weight: bold;
-      display: flex;
-      justify-content: center;  /* Centraliza o conteúdo */
-      align-items: center;
-      position: relative;
-    }
-
-    /* Botão Voltar - Alinhado à esquerda */
-    header .btn-voltar {
-      position: absolute;
-      left: 2rem;
-      background-color: #f44336;
-      color: white;
-      padding: 0.5rem 1.5rem;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 0 #e53935;
-      transition: background-color 0.3s ease;
-    }
-
-    header .btn-voltar:hover {
-      background-color: #e53935;
+      text-align: center;
     }
 
     .container {
       width: 80%;
       margin: 2rem auto;
-    }
-
-    .btn-adicionar {
-      background-color: #007bff;
-      color: white;
-      padding: 0.75rem 2rem;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 0 #0056b3;
-      transition: background-color 0.3s ease;
-      margin-bottom: 1rem;
-    }
-
-    .btn-adicionar:hover {
-      background-color: #0056b3;
     }
 
     table {
@@ -108,22 +67,22 @@
       border: none;
     }
 
-    .btn-editar {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .btn-editar:hover {
-      background-color: #45a049;
-    }
-
-    .btn-apagar {
+    .btn-cancelar {
       background-color: #f44336;
       color: white;
     }
 
-    .btn-apagar:hover {
+    .btn-cancelar:hover {
       background-color: #e53935;
+    }
+
+    .btn-editar {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-editar:hover {
+      background-color: #0056b3;
     }
 
     /* Estilo para o Modal */
@@ -191,36 +150,27 @@
 <body>
 
   <header>
-    <!-- Botão Voltar -->
-    <button class="btn-voltar" onclick="window.history.back();">Voltar</button>
-    <!-- Título centralizado -->
-    Tabela: Mesas
+    Reservas de Mesas
   </header>
 
   <div class="container">
-    <button class="btn-adicionar">Adicionar</button>
-
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Numero da Mesa</th>
-          <th>Lugares</th>
-          <th>Status</th>
-          <th>Preço</th>
+          <th>Data da Reserva</th>
+          <th>Hora da Reserva</th>
+          <th>Número de Pessoas</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr id="mesa-1">
-          <td id="id-1">1</td>
-          <td id="numero-1">01</td>
-          <td id="lugares-1">4</td>
-          <td id="status-1">Reservado</td>
-          <td id="preco-1">R$40,00</td>
+        <tr id="reserva-1">
+          <td id="data-1">12/06/2025</td>
+          <td id="hora-1">19:00</td>
+          <td id="pessoas-1">4</td>
           <td>
             <button class="btn btn-editar" onclick="abrirModal(1)">Editar</button>
-            <button class="btn btn-apagar">Apagar</button>
+            <button class="btn btn-cancelar">Cancelar</button>
           </td>
         </tr>
       </tbody>
@@ -231,54 +181,41 @@
   <div id="modal-editar" class="modal">
     <div class="modal-content">
       <span class="close" onclick="fecharModal()">&times;</span>
-      <h2>Editar Mesa</h2>
+      <h2>Editar Reserva</h2>
       <form id="form-editar">
-        <label for="numero">Número da Mesa:</label>
-        <input type="text" id="numero" name="numero" required />
-        
-        <label for="lugares">Número de Lugares:</label>
-        <input type="number" id="lugares" name="lugares" min="1" required />
-
-        <label for="status">Status:</label>
-        <input type="text" id="status" name="status" required />
-
-        <label for="preco">Preço:</label>
-        <input type="text" id="preco" name="preco" required />
-
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required />
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required />
+        <label for="pessoas">Número de Pessoas:</label>
+        <input type="number" id="pessoas" name="pessoas" min="1" required />
         <button type="submit">Salvar Alterações</button>
       </form>
     </div>
   </div>
 
   <script>
-    // Função para abrir o modal e preencher com os dados da reserva
     function abrirModal(id) {
-      // Preencher os campos com os dados da linha da tabela
-      document.getElementById('numero').value = document.getElementById(`numero-${id}`).innerText;
-      document.getElementById('lugares').value = document.getElementById(`lugares-${id}`).innerText;
-      document.getElementById('status').value = document.getElementById(`status-${id}`).innerText;
-      document.getElementById('preco').value = document.getElementById(`preco-${id}`).innerText;
+      // Preenche o modal com os dados da linha selecionada
+      document.getElementById('data').value = document.getElementById(`data-${id}`).innerText;
+      document.getElementById('hora').value = document.getElementById(`hora-${id}`).innerText;
+      document.getElementById('pessoas').value = document.getElementById(`pessoas-${id}`).innerText;
 
-      // Exibir o modal
       document.getElementById('modal-editar').style.display = 'block';
 
-      // Ao submeter o formulário, atualizar a tabela
       document.getElementById('form-editar').onsubmit = function (e) {
-        e.preventDefault();
-        document.getElementById(`numero-${id}`).innerText = document.getElementById('numero').value;
-        document.getElementById(`lugares-${id}`).innerText = document.getElementById('lugares').value;
-        document.getElementById(`status-${id}`).innerText = document.getElementById('status').value;
-        document.getElementById(`preco-${id}`).innerText = document.getElementById('preco').value;
+        e.preventDefault(); // Impede o envio do formulário
+        document.getElementById(`data-${id}`).innerText = document.getElementById('data').value;
+        document.getElementById(`hora-${id}`).innerText = document.getElementById('hora').value;
+        document.getElementById(`pessoas-${id}`).innerText = document.getElementById('pessoas').value;
         fecharModal(); // Fecha o modal após salvar
       };
     }
 
-    // Função para fechar o modal
     function fecharModal() {
       document.getElementById('modal-editar').style.display = 'none';
     }
 
-    // Fecha o modal ao clicar fora do conteúdo
     window.onclick = function(event) {
       if (event.target == document.getElementById('modal-editar')) {
         fecharModal();
