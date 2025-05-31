@@ -1,13 +1,16 @@
 $(document).ready(function () {
-    $('#login').submit(function (e) {
+    $('#register').submit(function (e) {
         e.preventDefault();
         var data = {
+            fullName: $('#fullName').val(),
+            phone: $('#phone').val(),
+            cpf: $('#cpf').val(),
             email: $('#email').val(),
             password: $('#password').val()
         };
 
         $.ajax({
-            url: 'http://localhost:8080/Restaurante/LoginServerlet',
+            url: 'http://localhost:8080/Restaurante/RegisterServerlet',
             method: 'POST',
             data: data,
             dataType: 'json'
@@ -15,15 +18,17 @@ $(document).ready(function () {
             if(result && result.success === true){
                 alert(result.message);
                 
+                $('#fullName').val(''),
+                $('#phone').val(''),
+                $('#cpf').val(''),
                 $('#email').val('');
                 $('#password').val('');
-            }else{
-                if(result && result.message){
-                    alert(result.message);
-                }
-                $('#email').val('');
-                $('#password').val('');
+                
+                window.location.href = "/login.html";
+            }else if(result && result.success === false){
+                alert(result.message);
             }
+ 
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.error("Erro AJAX: ", textStatus, errorThrown);
                 console.error("Detalhes: ", jqXHR.responseText);
@@ -38,6 +43,3 @@ $(document).ready(function () {
         });
     });
 });
-    
-
-

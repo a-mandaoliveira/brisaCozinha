@@ -4,6 +4,7 @@
  */
 package controller;
 
+import DAO.ClienteDAO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +13,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Cliente;
+import util.JsonResponse;
 
 /**
  *
  * @author anton
  */
-@WebServlet(name = "CadastroServerlet", urlPatterns = {"/CadastroServerlet"})
-public class CadastroServerlet extends HttpServlet {
+@WebServlet(name = "RegisterServerlet", urlPatterns = {"/RegisterServerlet"})
+public class RegisterServerlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,7 +36,7 @@ public class CadastroServerlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
-        String name = request.getParameter("fullName");
+        String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
         String cpf = request.getParameter("cpf");
         String email = request.getParameter("email");
@@ -43,7 +46,25 @@ public class CadastroServerlet extends HttpServlet {
         String jsonResponse;
         
         try (PrintWriter out = response.getWriter()) {
-            
+            if(fullName == null || fullName.trim().isEmpty() || phone == null || phone.trim().isEmpty() || cpf == null || 
+                    cpf.trim().isEmpty() || email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+                jsonResponse = gson.toJson(new JsonResponse(false, "Preencha todos os campos para se cadastrar"));
+                out.print(jsonResponse);
+                out.flush();
+                return;
+            }
+            ClienteDAO clienteDAO = new ClienteDAO(); 
+            Cliente clienteADD = new Cliente(0, fullName, phone, cpf, email, password);
+            System.out.println(clienteADD);
+            boolean res = clienteDAO.cadastrarCliente(clienteADD);
+            System.out.println(res);
+            if(res) {
+                jsonResponse = gson.toJson(new JsonResponse(true, "Cadastro efetuado com sucesso."));
+                response.setStatus(HttpServletResponse.SC_OK);
+                out.print(jsonResponse);
+                out.flush();
+                return;
+            }
         }
     }
 
