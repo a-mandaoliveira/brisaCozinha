@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Mesa;
 import util.ConectaBanco;
 
@@ -65,16 +67,38 @@ public class MesaDAO {
     }
     
     
-    public List<Mesa> consultarTodos() throws ClassNotFoundException, SQLException {
-        Connection con = ConectaBanco.getConexao();
-        PreparedStatement comando = con.prepareStatement("select * from mesa");
-        ResultSet rs = comando.executeQuery();
+    public List<Mesa> consultarTodos() {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        Connection con = null;
         
         List<Mesa> lmesa = new ArrayList<Mesa>();
-        while(rs.next()){
-            Mesa mesa = new Mesa(rs.getInt("idMesa"), rs.getInt("numeroMesa"), rs.getInt("qntdLugar"),rs.getString("status"), rs.getDouble("valorReserva"));
-            lmesa.add(mesa);
-        }        
+        String queryConsultarTodos = "SELECT * FROM mesa WHERE `status`='Disponivel'";
+        
+        try{
+            con = util.ConectaBanco.getConexao();
+            stmt = con.prepareStatement(queryConsultarTodos);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Mesa mesa = new Mesa(rs.getInt("id"), rs.getInt("numero"), rs.getInt("lugares"),rs.getString("status"), rs.getDouble("valorReserva"));
+                lmesa.add(mesa);
+            }
+        }catch(SQLException err1){
+            throw new RuntimeException(err1);
+        }catch (RuntimeException errDb) {
+            Logger.getLogger(MesaDAO.class.getName()).log(Level.SEVERE, "Erro de Runtime ao consultar todas as mesas (possivelmente conexao).", errDb);
+            throw new RuntimeException("Erro interno (DAO) ao consultar todas as mesas: " + errDb.getMessage(), errDb);
+        }finally{
+            try {
+                rs.close();
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+                
         return lmesa;
     }
 }
