@@ -31,14 +31,14 @@ $(document).ready(function () {
  
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.error("Erro AJAX: ", textStatus, errorThrown);
-                console.error("Detalhes: ", jqXHR.responseText);
+            console.error("Detalhes: ", jqXHR.responseText);
 
-                var serverErrorMessage = "Erro ao conectar com o servidor. Tente novamente mais tarde.";
-                if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
-                    serverErrorMessage = jqXHR.responseJSON.message;
-                } else if (jqXHR.responseText) {
-                     serverErrorMessage = "Erro do servidor: " + jqXHR.status + " - " + (jqXHR.responseText.substring(0,100) || errorThrown) ;
-                }
+            var serverErrorMessage = "Erro ao conectar com o servidor. Tente novamente mais tarde.";
+            if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
+                serverErrorMessage = jqXHR.responseJSON.message;
+            } else if (jqXHR.responseText) {
+                 serverErrorMessage = "Erro do servidor: " + jqXHR.status + " - " + (jqXHR.responseText.substring(0,100) || errorThrown) ;
+            }
             alert(serverErrorMessage);
         });
     });

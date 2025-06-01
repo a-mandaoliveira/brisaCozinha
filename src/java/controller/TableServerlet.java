@@ -15,6 +15,7 @@ import DAO.MesaDAO;
 import com.google.gson.Gson;
 import java.util.List;
 import util.JsonResponse;
+import java.sql.SQLException;
 
 /**
  *
@@ -46,6 +47,58 @@ public class TableServerlet extends HttpServlet {
                 jsonResponse = gson.toJson(mesas);
                 response.setStatus(HttpServletResponse.SC_OK);
                 out.print(jsonResponse);
+            } else if(op.equals("updateTable")){
+                int id = Integer.parseInt(request.getParameter("id"));
+                int numero = Integer.parseInt(request.getParameter("numero"));
+                int lugares = Integer.parseInt(request.getParameter("lugares"));
+                String status = request.getParameter("status");
+                Double preco = Double.valueOf(request.getParameter("preco"));
+                
+                boolean res = false;
+                
+                MesaDAO mesaDao = new MesaDAO();
+                Mesa m = new Mesa(id, numero, lugares, status, preco);
+                try{
+                    res = mesaDao.atualizar(m);
+                }catch(ClassNotFoundException err1) {
+                    System.out.println(err1);    
+                }catch(SQLException err2) {
+                    System.out.println(err2);
+                }
+                
+                if(res){
+                    jsonResponse = gson.toJson(new JsonResponse(res, "Atuatilização efetuada com sucesso"));
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    out.print(jsonResponse);
+                }else{
+                    jsonResponse = gson.toJson(new JsonResponse(res, "Falha na atualização"));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    out.print(jsonResponse);
+                }
+                
+            }else if(op.equals("deleteTable")){
+                int id = Integer.parseInt(request.getParameter("id"));
+                
+                boolean res = false;
+                
+                MesaDAO mesaDao = new MesaDAO();
+                try{
+                    res = mesaDao.deletar(id);
+                }catch(ClassNotFoundException err1) {
+                    System.out.println(err1);    
+                }catch(SQLException err2) {
+                    System.out.println(err2);
+                }
+                
+                if(res){
+                    jsonResponse = gson.toJson(new JsonResponse(res, "Mesa removida com sucesso"));
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    out.print(jsonResponse);
+                }else{
+                    jsonResponse = gson.toJson(new JsonResponse(res, "Falha em deletar mesa"));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    out.print(jsonResponse);
+                }
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 jsonResponse = gson.toJson(new JsonResponse(false, "Operação desconhecida: " + op));

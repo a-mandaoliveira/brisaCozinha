@@ -1,5 +1,30 @@
+<%-- 
+    Document   : teste
+    Created on : 1 de jun. de 2025, 15:38:32
+    Author     : anton
+--%>
+
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
+<%
+    HttpSession session1 = request.getSession(false);
+
+    if (session1 != null && session1.getAttribute("usuarioEmail") != null) {
+        String emailUsuario = (String) session1.getAttribute("usuarioEmail");
+        String tipoUsuario = (String) session1.getAttribute("tipoUsuario");
+
+        if ("cliente".equals(tipoUsuario)) {
+            response.sendRedirect(request.getContextPath() + "/index.html");
+            return;
+        }
+
+    } else {
+        //response.sendRedirect(request.getContextPath() + "/login.html");
+        out.println(session.getAttribute("usuarioEmail") + " oi");
+        return;
+    }
+%>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -219,6 +244,8 @@
       <span class="close" onclick="fecharModal()">&times;</span>
       <h2>Editar Mesa</h2>
       <form id="form-editar">
+          <input type="hidden" id="idMesa" name="idMesa">
+        
         <label for="numero">Número da Mesa:</label>
         <input type="text" id="numero" name="numero" required />
         
@@ -235,11 +262,25 @@
       </form>
     </div>
   </div>
+  
+  <div id="modal-excluir" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2>Excluir Mesa</h2>
+        <p>Tem certeza que deseja excluir essa mesa?</p>
+        <form id="form-excluir">
+            <input type="hidden" id="idExcluir" name="idExcluir">
+            <button type="submit" id="confirmar">Confirmar</button>
+        </form>
+        <button type="button" onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
 
   <script>
     // Função para abrir o modal e preencher com os dados da reserva
     function abrirModal(id) {
       // Preencher os campos com os dados da linha da tabela
+      document.getElementById('idMesa').value = id;
       document.getElementById('numero').value = document.getElementById(`numero-${id}`).innerText;
       document.getElementById('lugares').value = document.getElementById(`lugares-${id}`).innerText;
       document.getElementById('status').value = document.getElementById(`status-${id}`).innerText;
@@ -258,15 +299,24 @@
         fecharModal(); // Fecha o modal após salvar
       };
     }
+    
+    function abrirExcluir(id) {
+      // Preencher os campos com os dados da linha da tabela
+      document.getElementById('idExcluir').value = id;
 
+      // Exibir o modal
+      document.getElementById('modal-excluir').style.display = 'block';
+    }
+    
     // Função para fechar o modal
     function fecharModal() {
-      document.getElementById('modal-editar').style.display = 'none';
+        document.getElementById('modal-editar').style.display = 'none';
+        document.getElementById('modal-excluir').style.display = 'none';
     }
 
     // Fecha o modal ao clicar fora do conteúdo
     window.onclick = function(event) {
-      if (event.target == document.getElementById('modal-editar')) {
+      if (event.target === document.getElementById('modal-editar') || event.target === document.getElementById('modal-excluir')) {
         fecharModal();
       }
     };

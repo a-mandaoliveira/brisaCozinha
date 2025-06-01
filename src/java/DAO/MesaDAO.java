@@ -16,10 +16,6 @@ import java.util.logging.Logger;
 import model.Mesa;
 import util.ConectaBanco;
 
-/**
- *
- * @author PTOLEDO
- */
 public class MesaDAO {
 
     public void cadastrarMesa(Mesa m) throws ClassNotFoundException, SQLException {
@@ -34,24 +30,67 @@ public class MesaDAO {
         con.close();
     }
     
-    public void deletar(Mesa m) throws ClassNotFoundException, SQLException {
-        Connection con = ConectaBanco.getConexao();
-        PreparedStatement comando = con.prepareStatement("delete from mesa where id = ?");
-        comando.setInt(1, m.getIdMesa());
-        comando.execute();
-        con.close();
+    public boolean deletar(int id) throws ClassNotFoundException, SQLException {
+        boolean res = false;
+        
+        PreparedStatement stmt = null;
+        Connection con = null;
+        String queryDeletar = "DELETE FROM mesa WHERE id = ?";
+        try{
+            con = util.ConectaBanco.getConexao();
+            stmt = con.prepareStatement(queryDeletar);
+            
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            res = true;
+        }catch(SQLException err1){
+            throw new RuntimeException(err1);
+        }catch (RuntimeException errDb) {
+            Logger.getLogger(MesaDAO.class.getName()).log(Level.SEVERE, "Erro de Runtime ao consultar todas as mesas (possivelmente conexao).", errDb);
+            throw new RuntimeException("Erro interno (DAO) ao consultar todas as mesas: " + errDb.getMessage(), errDb);
+        }finally{
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return res;
     }
     
-    public void atualizar(Mesa m) throws ClassNotFoundException, SQLException {
-        Connection con = ConectaBanco.getConexao();
-        PreparedStatement comando = con.prepareStatement("update mesa set numeroMesa = ?, qntdLugar = ?, valorReserva = ?, status = ? where id = ?");
-        comando.setInt(1, m.getNumeroMesa());
-        comando.setInt(2, m.getQntdLugar());
-        comando.setDouble(3, m.getValorReserva());
-        comando.setString(4, m.getStatus());
-        comando.setInt(5, m.getIdMesa());
-        comando.execute();
-        con.close();
+    public boolean atualizar(Mesa m) throws ClassNotFoundException, SQLException {
+        boolean res = false;
+        
+        PreparedStatement stmt = null;
+        Connection con = null;
+        String queryAtualizar = "UPDATE mesa SET numero = ?, lugares = ?, valorReserva = ?, status = ? WHERE id = ?";
+        try{
+            con = util.ConectaBanco.getConexao();
+            stmt = con.prepareStatement(queryAtualizar);
+            
+            stmt.setInt(1, m.getNumeroMesa());
+            stmt.setInt(2, m.getQntdLugar());
+            stmt.setDouble(3, m.getValorReserva());
+            stmt.setString(4, m.getStatus());
+            stmt.setInt(5, m.getIdMesa());
+            stmt.executeUpdate();
+            res = true;
+        }catch(SQLException err1){
+            throw new RuntimeException(err1);
+        }catch (RuntimeException errDb) {
+            Logger.getLogger(MesaDAO.class.getName()).log(Level.SEVERE, "Erro de Runtime ao consultar todas as mesas (possivelmente conexao).", errDb);
+            throw new RuntimeException("Erro interno (DAO) ao consultar todas as mesas: " + errDb.getMessage(), errDb);
+        }finally{
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        return res;
     }
 
     public Mesa consultarById(Mesa m) throws ClassNotFoundException, SQLException {
@@ -72,7 +111,7 @@ public class MesaDAO {
         PreparedStatement stmt = null;
         Connection con = null;
         
-        List<Mesa> lmesa = new ArrayList<Mesa>();
+        List<Mesa> lmesa = new ArrayList<>();
         String queryConsultarTodos = "SELECT * FROM mesa WHERE `status`='Disponivel'";
         
         try{

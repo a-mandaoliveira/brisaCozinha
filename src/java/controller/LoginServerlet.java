@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.*;
+import javax.servlet.http.HttpSession;
 
 import util.JsonResponse;
 /**
@@ -50,6 +51,9 @@ public class LoginServerlet extends HttpServlet {
            
             //admin
             if("admin".equals(email) && "admin".equals(password)) {
+               HttpSession session = request.getSession(true);
+               session.setAttribute("usuarioEmail", "admin");
+               session.setAttribute("tipoUsuario", "admin");
                jsonResponse = gson.toJson(new JsonResponse(true, "Administrador logado com sucesso", "Admin"));
                response.setStatus(HttpServletResponse.SC_OK);
                out.print(jsonResponse);
@@ -57,25 +61,42 @@ public class LoginServerlet extends HttpServlet {
                return;
             }
            
-            DAO.ClienteDAO clienteDAO = new DAO.ClienteDAO(); //
+            DAO.ClienteDAO clienteDAO = new DAO.ClienteDAO();
             model.Cliente cliente = null;
            
             try {
-                cliente = clienteDAO.selecionarPorEmail(email); //
+                cliente = clienteDAO.selecionarPorEmail(email);
+                
+                if (cliente != null && cliente.getSenha().equals(password)) {
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("tipoUsuario", "cliente");
+                    session.setAttribute("usuarioEmail", cliente.getEmail());
+                    session.setAttribute("clienteId", cliente.getId());
+                    session.setAttribute("clienteNome", cliente.getNome());
+
+
+                    ClienteDetails details = new ClienteDetails(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(), cliente.getCpf());
+                    jsonResponse = gson.toJson(new JsonResponse(true, "Login bem-sucedido!", details));
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    out.print(jsonResponse);
+
+                } else {
+                    jsonResponse = gson.toJson(new JsonResponse(false, "Email ou senha inválidos."));
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+                    out.print(jsonResponse);
+                }
             } catch (RuntimeException e) {
                 e.printStackTrace();
 
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
                 jsonResponse = gson.toJson(new JsonResponse(false, e.toString()));
                 out.print(jsonResponse);
                 out.flush();
-                return;
             }finally{
                 jsonResponse = gson.toJson(new JsonResponse(true, cliente.toString(), cliente));
                 response.setStatus(HttpServletResponse.SC_OK);
                 out.print(jsonResponse);
                 out.flush();
-                return;
             }
         }
     }
@@ -132,9 +153,7 @@ public class LoginServerlet extends HttpServlet {
             this.email = email;
             this.telefone = telefone;
             this.cpf = cpf;
-        }
-        
-        
+        }   
     }
 }
 

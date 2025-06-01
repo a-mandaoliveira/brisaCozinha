@@ -8,6 +8,10 @@
         <servlet-name>TableServerlet</servlet-name>
         <servlet-class>controller.TableServerlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogouServerlet</servlet-name>
+        <servlet-class>controller.LogoutServerlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServerlet</servlet-name>
         <url-pattern>/LoginServerlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>TableServerlet</servlet-name>
         <url-pattern>/TableServerlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogouServerlet</servlet-name>
+        <url-pattern>/LogouServerlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
