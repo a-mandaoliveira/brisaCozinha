@@ -63,7 +63,6 @@ public class RegisterServerlet extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
                 out.print(jsonResponse);
                 out.flush();
-                return;
             }
         }
     }

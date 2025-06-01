@@ -9,14 +9,28 @@ package model;
  * @author anton
  */
 public class Reserva{
+    private int id;
     private String dtReserva;
     private String horaReserva;
     private int numeroPessoas;
+    private int mesa;
+    private int cliente;
 
-    public Reserva(String dtReserva, String horaReserva, int numeroPessoas) {
+    public Reserva(String dtReserva, String horaReserva, int numeroPessoas, int mesa, int cliente) {
         this.dtReserva = dtReserva;
         this.horaReserva = horaReserva;
         this.numeroPessoas = numeroPessoas;
+        this.mesa = mesa;
+        this.cliente = cliente;
+    }
+
+    public Reserva(int id, String dtReserva, String horaReserva, int numeroPessoas, int mesa, int cliente) {
+        this.id = id;
+        this.dtReserva = dtReserva;
+        this.horaReserva = horaReserva;
+        this.numeroPessoas = numeroPessoas;
+        this.mesa = mesa;
+        this.cliente = cliente;
     }
 
     public String getDtReserva() {
@@ -43,5 +57,20 @@ public class Reserva{
         this.numeroPessoas = numeroPessoas;
     }
 
+    public int getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(int mesa) {
+        this.mesa = mesa;
+    }
+
+    public int getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(int cliente) {
+        this.cliente = cliente;
+    }
     
 }

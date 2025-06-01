@@ -12,11 +12,11 @@ $(document).ready(function () {
             data: data,
             dataType: 'json'
         }).done(function (result) {
-            if(result && result.success === true){
-                alert(result.message);
-                
+            if(result && result.success === true){                
                 $('#email').val('');
                 $('#password').val('');
+                
+                window.location.href = "reserva.jsp";
             }else{
                 if(result && result.message){
                     alert(result.message);

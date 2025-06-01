@@ -1,9 +1,3 @@
-<%-- 
-    Document   : teste
-    Created on : 1 de jun. de 2025, 15:38:32
-    Author     : anton
---%>
-
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -20,197 +14,196 @@
         }
 
     } else {
-        //response.sendRedirect(request.getContextPath() + "/login.html");
-        out.println(session.getAttribute("usuarioEmail") + " oi");
+        response.sendRedirect(request.getContextPath() + "/login.html");
         return;
     }
 %>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tabela com Editar e Apagar</title>
-  <script src="javaScript/jQuery.js"></script>
-  <script src="javaScript/tableManager.js"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tabela com Editar e Apagar</title>
+    <script src="javaScript/jQuery.js"></script>
+    <script src="javaScript/tableManager.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
 
-    header {
-      padding: 1rem 2rem;
-      background-color: #256B3D;
-      color: #f5e9d4;
-      font-size: 1.5rem;
-      font-weight: bold;
-      display: flex;
-      justify-content: center; 
-      align-items: center;
-      position: relative;
-    }
+        header {
+            padding: 1rem 2rem;
+            background-color: #256B3D;
+            color: #f5e9d4;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            position: relative;
+        }
 
-    header .btn-voltar {
-      position: absolute;
-      left: 2rem;
-      background-color: #f44336;
-      color: white;
-      padding: 0.5rem 1.5rem;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 0 #e53935;
-      transition: background-color 0.3s ease;
-    }
+        header .btn-voltar {
+            position: absolute;
+            left: 2rem;
+            background-color: #f44336;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #e53935;
+            transition: background-color 0.3s ease;
+        }
 
-    header .btn-voltar:hover {
-      background-color: #e53935;
-    }
+        header .btn-voltar:hover {
+            background-color: #e53935;
+        }
 
-    .container {
-      width: 80%;
-      margin: 2rem auto;
-    }
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+        }
 
-    .btn-adicionar {
-      background-color: #007bff;
-      color: white;
-      padding: 0.75rem 2rem;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 0 #0056b3;
-      transition: background-color 0.3s ease;
-      margin-bottom: 1rem;
-    }
+        .btn-adicionar {
+            background-color: #007bff;
+            color: white;
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #0056b3;
+            transition: background-color 0.3s ease;
+            margin-bottom: 1rem;
+        }
 
-    .btn-adicionar:hover {
-      background-color: #0056b3;
-    }
+        .btn-adicionar:hover {
+            background-color: #0056b3;
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2rem;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
 
-    table, th, td {
-      border: 1px solid #ccc;
-    }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
 
-    th, td {
-      padding: 12px;
-      text-align: center;
-    }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
 
-    th {
-      background-color: #16492D;
-      color: #f5e9d4;
-      font-size: 1.1rem;
-    }
+        th {
+            background-color: #16492D;
+            color: #f5e9d4;
+            font-size: 1.1rem;
+        }
 
-    td {
-      background-color: #fff;
-      font-size: 1rem;
-    }
+        td {
+            background-color: #fff;
+            font-size: 1rem;
+        }
 
-    .btn {
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-      border: none;
-    }
+        .btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
 
-    .btn-editar {
-      background-color: #4CAF50;
-      color: white;
-    }
+        .btn-editar {
+            background-color: #4CAF50;
+            color: white;
+        }
 
-    .btn-editar:hover {
-      background-color: #45a049;
-    }
+        .btn-editar:hover {
+            background-color: #45a049;
+        }
 
-    .btn-apagar {
-      background-color: #f44336;
-      color: white;
-    }
+        .btn-apagar {
+            background-color: #f44336;
+            color: white;
+        }
 
-    .btn-apagar:hover {
-      background-color: #e53935;
-    }
+        .btn-apagar:hover {
+            background-color: #e53935;
+        }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      overflow: auto;
-      padding-top: 60px;
-    }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+            padding-top: 60px;
+        }
 
-    .modal-content {
-      background-color: #fefefe;
-      margin: 5% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 500px;
-      border-radius: 8px;
-    }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+        }
 
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-    .modal input {
-      width: 100%;
-      padding: 8px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
+        .modal input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
 
-    .modal button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+        .modal button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    .modal button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+        .modal button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 

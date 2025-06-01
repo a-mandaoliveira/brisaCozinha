@@ -92,11 +92,6 @@ public class LoginServerlet extends HttpServlet {
                 jsonResponse = gson.toJson(new JsonResponse(false, e.toString()));
                 out.print(jsonResponse);
                 out.flush();
-            }finally{
-                jsonResponse = gson.toJson(new JsonResponse(true, cliente.toString(), cliente));
-                response.setStatus(HttpServletResponse.SC_OK);
-                out.print(jsonResponse);
-                out.flush();
             }
         }
     }

@@ -1,9 +1,29 @@
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
+<%
+    HttpSession session1 = request.getSession(false);
+
+    if (session1 != null && session1.getAttribute("usuarioEmail") != null) {
+        String emailUsuario = (String) session1.getAttribute("usuarioEmail");
+        String tipoUsuario = (String) session1.getAttribute("tipoUsuario");
+
+        if ("admin".equals(tipoUsuario)) {
+            response.sendRedirect(request.getContextPath() + "/index.html");
+            return;
+        }
+
+    } else {
+        response.sendRedirect(request.getContextPath() + "/login.html");
+        return;
+    }
+%>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Reservas - Brisa Cozinha</title>
+  <script src="javaScript/jQuery.js"></script>
+  <script src="javaScript/reservation.js"></script>
   <style>
     /* Reset básico */
     * {
@@ -157,25 +177,29 @@
   <main>
     <h1>Faça sua Reserva</h1>
 
-    <form class="reserva-form" action="#" method="POST">
-      <label for="data">Data da Reserva:</label>
-      <input type="date" id="data" name="data" required />
+    <form class="reserva-form" id="reserva-form" action="#" method="POST">
+        <label for="data">Data da Reserva:</label>
+        <input type="date" id="data" name="data" required />
 
-      <label for="hora">Hora da Reserva:</label>
-      <input type="time" id="hora" name="hora" required />
+        <label for="hora">Hora da Reserva:</label>
+        <input type="time" id="hora" name="hora" required />
 
-      <label for="pessoas">Número de Pessoas:</label>
-      <select id="pessoas" name="pessoas" required>
-        <option value="2">2 Pessoas</option>
-        <option value="3">3 Pessoas</option>
-        <option value="4">4 Pessoas</option>
-        <option value="5">5 Pessoas</option>
-        <option value="6">6 Pessoas</option>
-        <option value="7">7 Pessoas</option>
-        <option value="8">8 Pessoas</option>
-      </select>
+        <label for="pessoas">Número de Pessoas:</label>
+        <select id="pessoas" name="pessoas" required>
+            <option value="2">2 Pessoas</option>
+            <option value="3">3 Pessoas</option>
+            <option value="4">4 Pessoas</option>
+            <option value="5">5 Pessoas</option>
+            <option value="6">6 Pessoas</option>
+            <option value="7">7 Pessoas</option>
+            <option value="8">8 Pessoas</option>
+        </select>
+        
+        <label for="mesas">Número da mesa:</label>
+        <select id="mesas" name="mesas" required>
+        </select>
 
-      <button type="submit">Reservar Agora</button>
+        <button type="submit">Reservar Agora</button>
     </form>
   </main>
 
@@ -202,3 +226,4 @@
 
 </body>
 </html>
+

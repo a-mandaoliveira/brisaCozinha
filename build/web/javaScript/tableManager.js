@@ -39,7 +39,7 @@ $(document).ready(function () {
             data: data,
             dataType: 'json'
         }).done(function (result) {
-            console.log(result);
+            console.log(result.message);
             
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.error("Erro AJAX: ", textStatus, errorThrown);
