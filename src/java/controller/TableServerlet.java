@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import java.io.IOException;
@@ -13,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.Mesa;
 import DAO.MesaDAO;
 import com.google.gson.Gson;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.List;
 import util.JsonResponse;
 import java.sql.SQLException;
@@ -98,6 +96,39 @@ public class TableServerlet extends HttpServlet {
                     jsonResponse = gson.toJson(new JsonResponse(res, "Falha em deletar mesa"));
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     out.print(jsonResponse);
+                }
+            } else if(op.equals("addTable")){
+                int numero = Integer.parseInt(request.getParameter("numero"));
+                int lugares = Integer.parseInt(request.getParameter("lugares"));
+                String status = request.getParameter("status");
+                Double preco = Double.valueOf(request.getParameter("preco"));
+                if(status == null || status.trim().isEmpty() || preco <= 0 || numero <=0 || lugares <=0) {
+                    jsonResponse = gson.toJson(new JsonResponse(false, "Preencha todos os campos para cadastrar uma mesa"));
+                    out.print(jsonResponse);
+                    out.flush();
+                    return;
+                }
+                MesaDAO mesaDAO = new MesaDAO(); 
+                Mesa reservaADD = new Mesa(numero, lugares, preco, status);
+                boolean res = false;
+                try {
+                    res = mesaDAO.cadastrarMesa(reservaADD);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ReservationServerlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReservationServerlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if(res) {
+                    jsonResponse = gson.toJson(new JsonResponse(true, "Reserva efetuada com sucesso."));
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    out.print(jsonResponse);
+                    out.flush();
+                }else{
+                    jsonResponse = gson.toJson(new JsonResponse(false, "Erro ao efetuar reserva"));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    out.print(jsonResponse);
+                    out.flush();
                 }
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

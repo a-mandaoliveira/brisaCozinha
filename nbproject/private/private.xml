@@ -12,14 +12,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitRepositories/brisaCozinha/web/tabelaMesa.jsp</file>
-            <file>file:/D:/GitRepositories/brisaCozinha/web/javaScript/reservation.js</file>
-            <file>file:/D:/GitRepositories/brisaCozinha/web/reserva.jsp</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/web/javaScript/myReservations.js</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/web/javaScript/tableManager.js</file>
             <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/ReservationServerlet.java</file>
-            <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/RegisterServerlet.java</file>
             <file>file:/D:/GitRepositories/brisaCozinha/src/java/DAO/ReservaDAO.java</file>
-            <file>file:/D:/GitRepositories/brisaCozinha/src/java/DAO/MesaDAO.java</file>
             <file>file:/D:/GitRepositories/brisaCozinha/src/java/model/Reserva.java</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/TableServerlet.java</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/LoginServerlet.java</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/LogoutServerlet.java</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/src/java/controller/RegisterServerlet.java</file>
+            <file>file:/D:/GitRepositories/brisaCozinha/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>

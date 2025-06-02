@@ -237,62 +237,23 @@
           <span class="close" onclick="fecharModal()">&times;</span>
           <h2>Adicionar Mesa</h2>
           <form id="form-adicionar">
-            <label for="numero">Número da Mesa:</label>
-            <input type="text" id="numero" name="numero" required />
+            <label for="numeroADD">Número da Mesa:</label>
+            <input type="text" id="numeroADD" name="numeroADD" required />
             
-            <label for="lugares">Número de Lugares:</label>
-            <input type="number" id="lugares" name="lugares" min="1" required />
+            <label for="lugaresADD">Número de Lugares:</label>
+            <input type="number" id="lugaresADD" name="lugaresADD" min="1" required />
     
-            <label for="status">Status:</label>
-            <input type="text" id="status" name="status" required />
+            <label for="statusADD">Status:</label>
+            <input type="text" id="statusADD" name="statusADD" required />
     
-            <label for="preco">Preço:</label>
-            <input type="text" id="preco" name="preco" required />
+            <label for="precoADD">Preço:</label>
+            <input type="text" id="precoADD" name="precoADD" required />
     
             <button type="submit">Adicionar Mesa</button>
           </form>
         </div>
       </div>
-
-    <script>
-        function abrirModalAdicionar() {
-          document.getElementById('modal-adicionar').style.display = 'block';
-        }
     
-        function fecharModal() {
-          document.getElementById('modal-adicionar').style.display = 'none';
-        }
-    
-        window.onclick = function(event) {
-          if (event.target === document.getElementById('modal-adicionar')) {
-            fecharModal();
-          }
-        };
-    
-        document.getElementById('form-adicionar').onsubmit = function (e) {
-          e.preventDefault();
-    
-          const numero = document.getElementById('numero').value;
-          const lugares = document.getElementById('lugares').value;
-          const status = document.getElementById('status').value;
-          const preco = document.getElementById('preco').value;
-    
-          const tabela = document.getElementById('tabelaDeMesas');
-          const novaLinha = tabela.insertRow();
-    
-          novaLinha.innerHTML = `
-            <td>${numero}</td>
-            <td>${lugares}</td>
-            <td>${status}</td>
-            <td>${preco}</td>
-          `;
-    
-          fecharModal();
-        };
-    </script>
-    
-    
-
   <!-- Modal de Edição -->
   <div id="modal-editar" class="modal">
     <div class="modal-content">
@@ -334,25 +295,25 @@
   <script>
     // Função para abrir o modal e preencher com os dados da reserva
     function abrirModal(id) {
-      // Preencher os campos com os dados da linha da tabela
-      document.getElementById('idMesa').value = id;
-      document.getElementById('numero').value = document.getElementById(`numero-${id}`).innerText;
-      document.getElementById('lugares').value = document.getElementById(`lugares-${id}`).innerText;
-      document.getElementById('status').value = document.getElementById(`status-${id}`).innerText;
-      document.getElementById('preco').value = document.getElementById(`preco-${id}`).innerText;
+        // Preencher os campos com os dados da linha da tabela
+        document.getElementById('idMesa').value = id;
+        document.getElementById('numero').value = document.getElementById('numero-'+id).innerText;
+        document.getElementById('lugares').value = document.getElementById('lugares-'+id).innerText;
+        document.getElementById('status').value = document.getElementById('status-'+id).innerText;
+        document.getElementById('preco').value = document.getElementById('preco-'+id).innerText;
 
-      // Exibir o modal
-      document.getElementById('modal-editar').style.display = 'block';
+        // Exibir o modal
+        document.getElementById('modal-editar').style.display = 'block';
 
-      // Ao submeter o formulário, atualizar a tabela
-      document.getElementById('form-editar').onsubmit = function (e) {
-        e.preventDefault();
-        document.getElementById(`numero-${id}`).innerText = document.getElementById('numero').value;
-        document.getElementById(`lugares-${id}`).innerText = document.getElementById('lugares').value;
-        document.getElementById(`status-${id}`).innerText = document.getElementById('status').value;
-        document.getElementById(`preco-${id}`).innerText = document.getElementById('preco').value;
-        fecharModal(); // Fecha o modal após salvar
-      };
+        // Ao submeter o formulário, atualizar a tabela
+        document.getElementById('form-editar').onsubmit = function (e) {
+            e.preventDefault();
+            document.getElementById('numero-'+id).innerText = document.getElementById('numero').value;
+            document.getElementById('lugares-'+id).innerText = document.getElementById('lugares').value;
+            document.getElementById('status-'+id).innerText = document.getElementById('status').value;
+            document.getElementById('preco-'+id).innerText = document.getElementById('preco').value;
+            fecharModal(); // Fecha o modal após salvar
+        };
     }
     
     function abrirExcluir(id) {
@@ -367,14 +328,40 @@
     function fecharModal() {
         document.getElementById('modal-editar').style.display = 'none';
         document.getElementById('modal-excluir').style.display = 'none';
+        document.getElementById('modal-adicionar').style.display = 'none';
     }
 
     // Fecha o modal ao clicar fora do conteúdo
     window.onclick = function(event) {
-      if (event.target === document.getElementById('modal-editar') || event.target === document.getElementById('modal-excluir')) {
+      if (event.target === document.getElementById('modal-editar') || event.target === document.getElementById('modal-excluir') || event.target === document.getElementById('modal-adicionar')) {
         fecharModal();
       }
     };
+    
+    function abrirModalAdicionar() {
+          document.getElementById('modal-adicionar').style.display = 'block';
+        }   
+    
+        document.getElementById('form-adicionar').onsubmit = function (e) {
+          e.preventDefault();
+    
+          const numero = document.getElementById('numero').value;
+          const lugares = document.getElementById('lugares').value;
+          const status = document.getElementById('status').value;
+          const preco = document.getElementById('preco').value;
+    
+          const tabela = document.getElementById('tabelaDeMesas');
+          const novaLinha = tabela.insertRow();
+    
+          novaLinha.innerHTML = `
+            <td>${numero}</td>
+            <td>${lugares}</td>
+            <td>${status}</td>
+            <td>${preco}</td>
+          `;
+    
+          fecharModal();
+        };
   </script>
 
 </body>

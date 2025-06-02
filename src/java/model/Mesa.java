@@ -23,6 +23,13 @@ public class Mesa{
         this.valorReserva = valorReserva;
     }
 
+    public Mesa(int numeroMesa, int qntdLugar, Double valorReserva, String status) {
+        this.numeroMesa = numeroMesa;
+        this.qntdLugar = qntdLugar;
+        this.valorReserva = valorReserva;
+        this.status = status;
+    }
+
     public int getIdMesa() {
         return idMesa;
     }

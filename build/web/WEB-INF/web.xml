@@ -9,12 +9,12 @@
         <servlet-class>controller.TableServerlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LogouServerlet</servlet-name>
-        <servlet-class>controller.LogoutServerlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ReservationServerlet</servlet-name>
         <servlet-class>controller.ReservationServerlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServerlet</servlet-name>
+        <servlet-class>pacote.LogoutServerlet</servlet-class>  
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServerlet</servlet-name>
@@ -25,8 +25,8 @@
         <url-pattern>/TableServerlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LogouServerlet</servlet-name>
-        <url-pattern>/LogouServerlet</url-pattern>
+        <servlet-name>LogoutServerlet</servlet-name>
+        <url-pattern>/LogoutServerlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReservationServerlet</servlet-name>
