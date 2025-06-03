@@ -163,12 +163,57 @@
         .modal button:hover {
             background-color: #0056b3;
         }
+
+        header {
+            padding: 1.5rem 2rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #f5e9d4;
+        }
+
+        nav {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            display: flex;
+            gap: 2rem;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+        }
+
+        nav a {
+            color: #f5e9d4;
+            font-weight: normal;
+            letter-spacing: 0.05em;
+        }
+
+        #logout-button {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #logout-button:hover {
+            background-color: darkred;
+        }
     </style>
 </head>
 <body>
 
   <header>
-    Reservas de Mesas
+    <span>Brisa Cozinha</span>
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="reserva.html">Reservas</a>
+        <a href="minhasReservas.jsp">Minhas Reservas</a>
+        <button id="logout-button">Logout</button>
+    </nav>
   </header>
 
     <div class="container">
@@ -219,5 +264,7 @@
         };
     </script>
 
+    <script src="javaScript/jQuery.js"></script>
+    <script src="javaScript/logout.js"></script>
 </body>
 </html>

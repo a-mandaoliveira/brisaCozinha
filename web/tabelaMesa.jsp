@@ -68,6 +68,22 @@
             background-color: #e53935;
         }
 
+        header {
+          padding: 1rem 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+
+        nav a {
+          color: #f5e9d4;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          font-size: 1rem;
+          letter-spacing: 0.05em;
+        }
+
         .container {
             width: 80%;
             margin: 2rem auto;
@@ -203,13 +219,35 @@
         .modal button:hover {
             background-color: #0056b3;
         }
+
+        
+        #logout-button {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #logout-button:hover {
+            background-color: darkred;
+        }
     </style>
 </head>
 <body>
 
   <header>
-    <button class="btn-voltar" onclick="window.history.back();">Voltar</button>
-    Tabela: Mesas
+    <nav>
+      <button class="btn-voltar" onclick="window.history.back();">Voltar</button>
+      <a href="index.html">Início</a>
+      <a href="cardapio.html">Cardápio</a>
+      <a href="reserva.html">Reservas</a>
+      <a href="tabelasMesa.jsp">Gerenciar Tabela</a>
+      <button id="logout-button">Logout</button>
+    </nav>
   </header>
 
   <div class="container">
@@ -363,6 +401,7 @@
           fecharModal();
         };
   </script>
-
+  <script src="javaScript/jQuery.js"></script>
+  <script src="javaScript/logout.js"></script>
 </body>
 </html>

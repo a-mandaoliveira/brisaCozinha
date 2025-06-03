@@ -159,6 +159,22 @@
       }
     }
 
+    
+      #logout-button {
+        background-color: red;
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #logout-button:hover {
+        background-color: darkred;
+      }
+
   </style>
 </head>
 <body>
@@ -170,6 +186,8 @@
       <a href="index.html">Início</a>
       <a href="cardapio.html">Cardápio</a>
       <a href="reserva.html">Reservas</a>
+      <a href="tabelasMesa.jsp">Gerenciar Tabela</a>
+      <button id="logout-button">Logout</button>
     </nav>
   </header>
 
@@ -223,7 +241,8 @@
       <a href="#">Twitter</a>
     </div>
   </footer>
-
+  <script src="javaScript/jQuery.js"></script>
+  <script src="javaScript/logout.js"></script>
 </body>
 </html>
 
